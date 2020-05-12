@@ -27,13 +27,17 @@ def create_app(config_name):
     # initialiaze the database
     db.init_app(app)   
 
-      # register your blueprints here
+    # register your blueprints here
     from app.main import main
     from app.auth import auth
+    from app.owner import owner
+    from app.properties import properties
+    from app.tenant import tenant
     
-
     app.register_blueprint(main)
     app.register_blueprint(auth)
-
+    app.register_blueprint(owner)
+    app.register_blueprint(properties)
+    app.register_blueprint(tenant)
 
     return app 

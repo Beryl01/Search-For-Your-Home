@@ -6,6 +6,7 @@ class Config:
     '''
     SECRET_KEY = os.environ.get("SECRET_KEY")
     CSRF_ENABLED = os.environ.get('CSRF_ENABLED')
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/project'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 class ProductionConfig(Config):

@@ -1,29 +1,90 @@
-from . import db
+from . import db, login_manager
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
 
-class Landlord(db.Model):
-    __tablename__ = 'landlord'
+class User_tenant(db.Model, UserMixin):
+
+    __tablename__ = 'tenant_users'
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
+    first_name = db.Column(db.String(20), unique=True, nullable=False)
+    last_name = db.Column(db.String(20), unique=True, nullable=False)
+    secure_password = db.Column(db.String(20),nullable = False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
+    property = db.relationship('Property',backref = 'tenant_user',lazy="dynamic")
 
-    def __repr__(self):
-        return f'Landlord {self.username}'
+    @property
+    def set_password(self):
+        raise AttributeError('You cannot read the password attribute')
 
-class Tenant(db.Model):
-    __tablename__ = 'tenant'
+    @set_password.setter
+    def password(self, password):
+            self.secure_password = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.secure_password,password)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class User_Owner(db.Model, UserMixin):
+
+    __tablename__ = 'owner_users'
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
+    first_name = db.Column(db.String(20), unique=True, nullable=False)
+    last_name = db.Column(db.String(20), unique=True, nullable=False)
+    secure_password = db.Column(db.String(255),nullable = False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
+    verified = db.Column(db.Boolean, default=False, nullable=False)
+    property = db.relationship('Property',backref = 'owner_user',lazy="dynamic")
 
-    def __repr__(self):
-        return f'Tenant {self.username}'
+    @property
+    def set_password(self):
+        raise AttributeError('You cannot read the password attribute')
+
+    @set_password.setter
+    def password(self, password):
+            self.secure_password = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.secure_password,password)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class Property(db.Model):
-    __tablename__ = 'property'
-    id = db.Column(db.Integer,primary_key = True)
-    title = db.Column(db.String(20))
 
-    def __repr__(self):
-        return f'Property {self.title}'        
+    __tablename__ = 'properties'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    rent = db.Column(db.Integer,nullable=False))
+    location = db.Column(db.String, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('owner_users.id'), nullable=False)
+    tenant_id =db.Column(db.Integer, db.ForeignKey('tenant_users.id')
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+        
