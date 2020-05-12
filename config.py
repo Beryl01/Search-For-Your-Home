@@ -1,21 +1,24 @@
 import os
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://@localhost/'
+    '''
+    General configuration parent class
+    '''
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    CSRF_ENABLED = os.environ.get('CSRF_ENABLED')
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
-    @staticmethod
-    def init_app(app):
-        pass
+class ProductionConfig(Config):
+    DEBUG = False
 
-class ProdConfig(Config):
-    pass
+class DevelopmentConfig(Config):
+    DEBUG = os.environ.get('DEBUG')
 
-class DevConfig(Config):
-    DEBUG = True
+class TestingConfig(Config):
+    TESTING = True
 
 config_options = {
-'development':DevConfig,
-'production':ProdConfig
-
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+    'testing':TestingConfig,
 }
