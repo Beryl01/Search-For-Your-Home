@@ -1,4 +1,16 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% endblock content %}
+
+{
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    {{wtf.quick_form(login_form)}}
+    <br>
+    <br>
+    <p> Don't have an account? <a href="{{url_for('register.html')}}">Sign up Here</a></p>
+</div>
+<div class="col-md-2"></div>
+
+{% endblock %}
+
