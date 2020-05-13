@@ -1,4 +1,15 @@
 {% extends "base.html" %}
-{% block content %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-{% endblock content %}
+{% block title %} {{ _('Register') }}{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <div class="common-header">
+        <h1>{{ _('Register') }}</h1>
+    </div>
+</div>
+<div class="col-md-6">
+    {{ wtf.quick_form(form, button_map={'submit':'success'}, novalidate=True) }}
+</div>
+{% endblock %}
