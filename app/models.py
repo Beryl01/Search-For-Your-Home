@@ -1,4 +1,4 @@
-from . import db, login_manager
+from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 
@@ -14,7 +14,7 @@ class User_tenant(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
-    property = db.relationship('Property',backref = 'tenant_user',lazy="dynamic")
+    _property = db.relationship('Property',backref = 'tenant_user',lazy="dynamic")
 
     @property
     def set_password(self):
@@ -48,7 +48,7 @@ class User_Owner(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
     verified = db.Column(db.Boolean, default=False, nullable=False)
-    property = db.relationship('Property',backref = 'owner_user',lazy="dynamic")
+    _property = db.relationship('Property',backref = 'owner_user',lazy="dynamic")
 
     @property
     def set_password(self):
