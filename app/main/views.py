@@ -24,3 +24,12 @@ def view_categories():
     above_60 = Property.query.filter_by(rent_category = 'above_60').all()
    
     return render_template('categories.html',all_properties = all_properties, nairobi_properties = nairobi_properties, mombasa_properties = mombasa_properties, nakuru_properties = nakuru_properties, kisumu_properties = kisumu_properties, eldoret_properties = eldoret_properties, _0_to_20 = _0_to_20, _20_to_40 = _20_to_40, _40_to_60 = _40_to_60, above_60 = above_60 )
+
+
+
+@main.route('/property/<int:id>')
+def property(id):
+
+    property = Property.query.get(id)
+    
+    return render_template('property.html',property = property)
