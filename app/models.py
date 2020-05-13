@@ -72,13 +72,14 @@ class User_Owner(db.Model, UserMixin):
 class Property(db.Model):
 
     __tablename__ = 'properties'
-    
+
     id = db.Column(db.Integer, primary_key=True)
-    rent = db.Column(db.Integer,nullable=False))
+    rent = db.Column(db.Integer,nullable=False)
+    rent_category = db.Column(db.String, nullable=False)
     location = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner_users.id'), nullable=False)
-    tenant_id =db.Column(db.Integer, db.ForeignKey('tenant_users.id')
+    tenant_id =db.Column(db.Integer, db.ForeignKey('tenant_users.id'))
 
     def save(self):
         db.session.add(self)
@@ -87,4 +88,3 @@ class Property(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-        
