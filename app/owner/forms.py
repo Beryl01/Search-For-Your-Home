@@ -11,7 +11,8 @@ images = UploadSet('images', IMAGES)
 
 
 class PropertyForm(FlaskForm):
-    title = StringField('Property name', validators=[Required()])
+
+    description = TextAreaField('Describe your property', validators=[Required()])
     location = SelectField('Location', choices=[('nairobi', 'nairobi'), ('mombasa', 'mombasa'), ('kisumu', 'kisumu')],
                            validators=[Required()])
 
