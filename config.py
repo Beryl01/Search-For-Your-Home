@@ -6,12 +6,9 @@ class Config:
     '''
     SECRET_KEY = os.environ.get("SECRET_KEY")
     CSRF_ENABLED = os.environ.get('CSRF_ENABLED')
-    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/project'
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://nabz:none2@localhost/home_search1'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI')
     UPLOADED_PHOTOS_DEST ='app/static/images'
     
-  
-
 class ProductionConfig(Config):
     DEBUG = False
 
