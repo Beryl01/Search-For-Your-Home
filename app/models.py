@@ -13,7 +13,6 @@ class User_tenant(db.Model, UserMixin):
     secure_password = db.Column(db.String(20),nullable = False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
-    property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
     _property = db.relationship('Property',backref = 'tenant_user',lazy="dynamic")
 
     @property
