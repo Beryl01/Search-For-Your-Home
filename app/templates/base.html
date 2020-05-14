@@ -4210,12 +4210,14 @@ html {
                     <div class="col-12 col-md-10 d-none d-xl-block">
                         <nav class="site-navigation position-relative text-right" role="navigation">
                             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                                <li><a href="" class="nav-link">Home</a></li>
+                              {% if current_user.is_authenticated %}
                                 <li><a href="{{ url_for('main.categories') }}" class="nav-link">Properties</a></li>
-                                <li><a href="{{ url_for('main._property') }}" class="nav-link">Book Now</a></li>
-                                <li><a href="" class="nav-link">Login</a></li>
-                                <li><a href="" class="nav-link">Register</a></li>
-                                <li><a href="" class="nav-link">Logout</a></li>
+                                <li><a href="{{ url_for('main.new_property') }}" class="nav-link">Post Your Property</a></li>
+                                <li><a href="{{ url_for('main.logout') }}" class="nav-link">Logout</a></li>
+                                {% else %}
+                                <li><a href="{{ url_for('main.login') }}" class="nav-link">Login</a></li>
+                                <li><a href="{{ url_for('main.register') }}" class="nav-link">Register</a></li>
+                                {% endif %}
                             </ul>
                         </nav>
                     </div>
@@ -4244,7 +4246,7 @@ html {
                         <div class="row">
                             <div class="col-md-5">
                                 <h2 class="footer-heading mb-4">About Us</h2>
-                                <p class="copyright"> Copyright &copy;</p>
+                                <p class="copyright"> Copyright &copy;Search For Your Home 2020</p>
                             </div>
                         </div>
                     </div>
