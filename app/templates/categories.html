@@ -58,7 +58,7 @@
                     </form>
                 </div>
             </div>
-            {% for all_properties in all_properties %}
+            {% for property in all_properties %}
             <div class="col-md-9 order-2 order-md-1">
                 <div class="row large-gutters">
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
@@ -68,10 +68,10 @@
                                         alt="Image" class="img-fluid"></a>
                                 <div class="ftco-media-details">
                                     <h3>
-                                        <a href="{{ url_for('_property', _property_id=_property.id) }}">{{ _property.location }}</a>
+                                        <a href="{{ url_for('_property', _property_id=_property.id) }}">{{ property.location }}</a>
                                     </h3>
                                     <strong>
-                                        <a href="{{ url_for('_property', _property_id=_property.id) }}">{{ _property.rent }}</a>
+                                        <a href="{{ url_for('_property', _property_id=_property.id) }}">{{ property.rent }}</a>
                                     </strong>
                                 </div>
                             </div>
