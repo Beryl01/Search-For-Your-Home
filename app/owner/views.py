@@ -4,3 +4,5 @@ from .forms import PropertyForm
 from ..models import User_Owner, Property
 from flask_login import login_required, current_user
 from .. import db,photos
+
+
