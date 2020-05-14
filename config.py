@@ -8,6 +8,8 @@ class Config:
     CSRF_ENABLED = os.environ.get('CSRF_ENABLED')
     # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/project'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://nabz:none2@localhost/home_search1'
+    UPLOADED_PHOTOS_DEST ='app/static/images'
+    
   
 
 class ProductionConfig(Config):
