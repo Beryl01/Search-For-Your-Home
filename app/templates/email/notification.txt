@@ -1,0 +1,3 @@
+Hello, a new Home listing by  has been made, head over to the our website to view it.
+
+{{user.username}}.
