@@ -46,7 +46,6 @@ class User_Owner(db.Model, UserMixin):
     secure_password = db.Column(db.String(255),nullable = False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
-    property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
     verified = db.Column(db.Boolean, default=False, nullable=False)
     _property = db.relationship('Property',backref = 'owner_user',lazy="dynamic")
 
