@@ -1,4 +1,4 @@
-from . import db
+from . import db, login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 
@@ -13,7 +13,6 @@ class User_tenant(db.Model, UserMixin):
     secure_password = db.Column(db.String(20),nullable = False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
-    property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
     _property = db.relationship('Property',backref = 'tenant_user',lazy="dynamic")
 
     @property
@@ -46,7 +45,6 @@ class User_Owner(db.Model, UserMixin):
     secure_password = db.Column(db.String(255),nullable = False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
-    property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
     verified = db.Column(db.Boolean, default=False, nullable=False)
     _property = db.relationship('Property',backref = 'owner_user',lazy="dynamic")
 
@@ -72,7 +70,7 @@ class User_Owner(db.Model, UserMixin):
 class Property(db.Model):
 
     __tablename__ = 'properties'
-
+    
     id = db.Column(db.Integer, primary_key=True)
     rent = db.Column(db.Integer,nullable=False)
     rent_category = db.Column(db.String, nullable=False)
@@ -80,6 +78,7 @@ class Property(db.Model):
     description = db.Column(db.Text, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner_users.id'), nullable=False)
     tenant_id =db.Column(db.Integer, db.ForeignKey('tenant_users.id'))
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
 
     def save(self):
         db.session.add(self)
@@ -88,3 +87,4 @@ class Property(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+        
