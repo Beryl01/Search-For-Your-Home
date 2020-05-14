@@ -16,11 +16,6 @@
                                     <option value="">Nairobi</option>
                                     <option value="">Mombasa</option>
                                     <option value="">Kisumu</option>
-                                    <option value="">Meru</option>
-                                    <option value="">Kakamega</option>
-                                    <option value="">Eldoret</option>
-                                    <option value="">Nakuru</option>
-                                    <option value="">Naivasha</option>
                                 </select>
                             </div>
                         </div>
@@ -63,127 +58,28 @@
                     </form>
                 </div>
             </div>
+            {% for all_properties in all_properties %}
             <div class="col-md-9 order-2 order-md-1">
                 <div class="row large-gutters">
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
                         <div class="ftco-media-1">
                             <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/property_1.jpg"
+                                <a href="" class="d-inline-block mb-4"><img src="{{ url_for('static', filename='images/' + _property.image_file) }}"
                                         alt="Image" class="img-fluid"></a>
                                 <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
-                        <div class="ftco-media-1">
-                            <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/property_2.jpg"
-                                        alt="Image" class="img-fluid"></a>
-                                <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
-                        <div class="ftco-media-1">
-                            <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/property_3.jpg"
-                                        alt="Image" class="img-fluid"></a>
-                                <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
-                        <div class="ftco-media-1">
-                            <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/property_4.jpg"
-                                        alt="Image" class="img-fluid"></a>
-                                <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
-                        <div class="ftco-media-1">
-                            <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/property_1.jpg"
-                                        alt="Image" class="img-fluid"></a>
-                                <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
-                        <div class="ftco-media-1">
-                            <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/img3.jpeg"
-                                        alt="Image" class="img-fluid"></a>
-                                <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
-                        <div class="ftco-media-1">
-                            <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/property_2.jpg"
-                                        alt="Image" class="img-fluid"></a>
-                                <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
-                        <div class="ftco-media-1">
-                            <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/img5.jpeg"
-                                        alt="Image" class="img-fluid"></a>
-                                <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5 ">
-                        <div class="ftco-media-1">
-                            <div class="ftco-media-1-inner">
-                                <a href="" class="d-inline-block mb-4"><img src="../static/images/img11.jpeg"
-                                        alt="Image" class="img-fluid"></a>
-                                <div class="ftco-media-details">
-                                    <h3>Kawangware</h3>
-                                    <p>Nairobi</p>
-                                    <strong>Ksh.20,000</strong>
+                                    <h3>
+                                        <a href="{{ url_for('_property', _property_id=_property.id) }}">{{ _property.location }}</a>
+                                    </h3>
+                                    <strong>
+                                        <a href="{{ url_for('_property', _property_id=_property.id) }}">{{ _property.rent }}</a>
+                                    </strong>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -196,8 +92,7 @@
                     <a href="" class="d-inline-block mb-4"><img src="../static/images/property_1.jpg" alt="Image"
                             class="img-fluid"></a>
                     <div class="ftco-media-details">
-                        <h3>Kawangware</h3>
-                        <p>Nairobi</p>
+                        <p>Nairobi, Lavington Agwigs Rd, Phase Two</p>
                         <strong>Ksh.20,000</strong>
                     </div>
                 </div>
@@ -207,9 +102,8 @@
                     <a href="" class="d-inline-block mb-4"><img src="../static/images/property_2.jpg" alt="Image"
                             class="img-fluid"></a>
                     <div class="ftco-media-details">
-                        <h3>Kawangware</h3>
-                        <p>Nairobi</p>
-                        <strong>Ksh.20,000</strong>
+                        <p>Kisumu, Siaya Along Karachuonyo Rd</p>
+                        <strong>Ksh.30,000</strong>
                     </div>
                 </div>
             </div>
@@ -218,20 +112,8 @@
                     <a href="" class="d-inline-block mb-4"><img src="../static/images/property_3.jpg" alt="Image"
                             class="img-fluid"></a>
                     <div class="ftco-media-details">
-                        <h3>Kawangware</h3>
-                        <p>Nairobi</p>
-                        <strong>Ksh.20,000</strong>
-                    </div>
-                </div>
-            </div>
-            <div class="ftco-media-1">
-                <div class="ftco-media-1-inner">
-                    <a href="" class="d-inline-block mb-4"><img src="../static/images/property_4.jpg" alt="Image"
-                            class="img-fluid"></a>
-                    <div class="ftco-media-details">
-                        <h3>Kawangware</h3>
-                        <p>Nairobi</p>
-                        <strong>Ksh.20,000</strong>
+                        <p>Mombasa, Bamburi Phase 4</p>
+                        <strong>Ksh.40,000</strong>
                     </div>
                 </div>
             </div>

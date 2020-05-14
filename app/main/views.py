@@ -1,7 +1,8 @@
-from flask import render_template, url_for, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from . import main
-from ..models import User_Owner, User_tenant, Property
-from flask_login import login_required
+from PIL import Image
+from ..models import User, Property
+from flask_login import login_user, current_user, logout_user, login_required
 from .. import db
 
 # your views go here i.e for home,about
@@ -13,21 +14,69 @@ def index():
 @main.route("/categories")
 def categories():
     all_properties = Property.query.all()
-    nairobi_properties = Property.query.filter_by(location = 'nairobi').all() 
-    nakuru_properties = Property.query.filter_by(location = 'nakuru').all()
-    mombasa_properties = Property.query.filter_by(location = 'mombasa').all()
-    kisumu_properties = Property.query.filter_by(location = 'kisumu').all()
-    eldoret_properties = Property.query.filter_by(location = 'eldoret').all()
-    _0_to_20 = Property.query.filter_by(rent_category = '_0_to_20').all()
-    _20_to_40 = Property.query.filter_by(rent_category = '_20_to_40').all()
-    _40_to_60 = Property.query.filter_by(rent_category = '_40_to_60').all()
-    above_60 = Property.query.filter_by(rent_category = 'above_60').all()
-   
-    return render_template('categories.html',all_properties = all_properties, nairobi_properties = nairobi_properties, mombasa_properties = mombasa_properties, nakuru_properties = nakuru_properties, kisumu_properties = kisumu_properties, eldoret_properties = eldoret_properties, _0_to_20 = _0_to_20, _20_to_40 = _20_to_40, _40_to_60 = _40_to_60, above_60 = above_60 )
+    return render_template('categories.html',all_properties = all_properties)
 
-@main.route('/property/<int:id>')
-def _property(id):
-
+@main.route('/property/<int:property_id>')
+@login_required
+def _property(property_id):
     _property = Property.query.get(id)
+    return render_template('property.html',_property = _property)
+
+@main.route("/property/new", methods=['GET', 'POST'])
+@login_required
+def new_property():
+    form = PropertyForm()
+    if form.validate_on_submit():
+        _property = Property(location=form.location.data, rent= form.rent.data, content=form.content.data, picture=form.picture.data, contact=form.contact.data)
+        db.session.add(_property)
+        db.session.commit()
+        flash('Your property has been posted!', 'success')
+        return redirect(url_for('categories'))
+    return render_template('create_property.html', title='New Property', form=form, legend='New Property')     
+
+@main.route("/register", methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash('Your account has been created! You are now able to log in', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
     
-    return render_template('property.html',property = property)
+@main.route("/login", methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('index'))
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
+    return render_template('login.html', title='Login', form=form)   
+
+@main.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
+
+    output_size = (1364, 900)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn   
