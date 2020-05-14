@@ -1,4 +1,4 @@
-from . import db
+from . import db, login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 
@@ -72,7 +72,7 @@ class User_Owner(db.Model, UserMixin):
 class Property(db.Model):
 
     __tablename__ = 'properties'
-
+    
     id = db.Column(db.Integer, primary_key=True)
     rent = db.Column(db.Integer,nullable=False)
     rent_category = db.Column(db.String, nullable=False)
@@ -80,6 +80,7 @@ class Property(db.Model):
     description = db.Column(db.Text, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner_users.id'), nullable=False)
     tenant_id =db.Column(db.Integer, db.ForeignKey('tenant_users.id'))
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
 
     def save(self):
         db.session.add(self)
@@ -88,3 +89,4 @@ class Property(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+        
