@@ -4,6 +4,7 @@ from PIL import Image
 from ..models import User, Property
 from flask_login import login_user, current_user, logout_user, login_required
 from .. import db
+from .forms import RegistrationForm, LoginForm, PropertyForm
 
 # your views go here i.e for home,about
 @main.route("/")
@@ -16,11 +17,16 @@ def categories():
     all_properties = Property.query.all()
     return render_template('categories.html',all_properties = all_properties)
 
-@main.route('/property/<int:property_id>')
+@main.route('/property/<int:id>',methods= ['POST'])
 @login_required
-def _property(property_id):
-    _property = Property.query.get(id)
-    return render_template('property.html',_property = _property)
+def property_pic(id):
+    property = Property.query.filter_by(owner_id = id).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'images/{filename}'
+        property.image_file = path
+        db.session.commit()
+    return redirect(url_for('categories'))
 
 @main.route("/property/new", methods=['GET', 'POST'])
 @login_required
@@ -68,15 +74,4 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
-
-    output_size = (1364, 900)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
-    return picture_fn   
+ 
