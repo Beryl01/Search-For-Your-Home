@@ -33,7 +33,7 @@ def property_pic(id):
 def new_property():
     form = PropertyForm()
     if form.validate_on_submit():
-        _property = Property(location=form.location.data, rent= form.rent.data, content=form.content.data, picture=form.picture.data, contact=form.contact.data)
+        property = Property(location=form.location.data, rent= form.rent.data, content=form.content.data, picture=form.picture.data, contact=form.contact.data)
         db.session.add(_property)
         db.session.commit()
         flash('Your property has been posted!', 'success')
